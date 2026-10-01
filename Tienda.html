@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITWEAR - Tu Estilo, Tu Fuerza</title>
+    <!-- Carga de Tailwind CSS para el diseño responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de FontAwesome para la iconografía -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        /* Configuración de colores personalizados de Tailwind según la estética de la marca */
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        fitlime: '#ccff00',   /* Verde lima característico */
+                        fitdark: '#0d0d0d',   /* Fondo oscuro principal */
+                        fitcard: '#161616',   /* Color de tarjetas */
+                        fitborder: '#262626'  /* Bordes sutiles */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Personalización de la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ccff00;
+        }
+    </style>
+</head>
+<body class="bg-fitdark text-white min-h-screen flex flex-col selection:bg-fitlime selection:text-black">
+
+    <header class="sticky top-0 z-50 bg-fitdark/95 backdrop-blur-md border-b border-fitborder transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logotipo de la marca -->
+            <a href="#inicio" onclick="cambiarVista('inicio')" class="flex items-center gap-2 group">
+                <div class="flex flex-col">
+                    <span class="text-2xl sm:text-3xl font-black tracking-wider italic">FITWEAR</span>
+                    <span class="text-[9px] tracking-widest text-fitlime font-bold uppercase -mt-1">TU ESTILO, TU FUERZA</span>
+                </div>
+            </a>
+
+            <!-- Menú de navegación principal para escritorio -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#inicio" onclick="cambiarVista('inicio')" class="nav-link text-fitlime transition-colors pb-1 border-b-2 border-fitlime" data-target="inicio">INICIO</a>
+                <a href="#tienda" onclick="cambiarVista('tienda', 'todos')" class="nav-link text-gray-300 hover:text-fitlime transition-colors pb-1 border-b-2 border-transparent" data-target="tienda">TIENDA</a>
+                
+                <!-- Menú desplegable de Categorías -->
+                <div class="relative group py-2">
+                    <button class="flex items-center gap-1 text-gray-300 hover:text-fitlime transition-colors focus:outline-none">
+                        <span>CATEGORÍAS</span>
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="absolute top-full left-0 w-52 bg-fitcard border border-fitborder rounded-xl shadow-2xl py-2 hidden group-hover:block transition-all transform origin-top">
+                        <button onclick="cambiarVista('tienda', 'buzos')" class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-neutral-800 hover:text-fitlime transition-colors">Buzos y Camperas</button>
+                        <button onclick="cambiarVista('tienda', 'remeras')" class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-neutral-800 hover:text-fitlime transition-colors">Remeras</button>
+                        <button onclick="cambiarVista('tienda', 'pantalones')" class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-neutral-800 hover:text-fitlime transition-colors">Pantalones</button>
+                        <button onclick="cambiarVista('tienda', 'tops')" class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-neutral-800 hover:text-fitlime transition-colors">Tops y Calzas</button>
+                        <button onclick="cambiarVista('tienda', 'zapatillas')" class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-neutral-800 hover:text-fitlime transition-colors">Zapatillas</button>
+                    </div>
+                </div>
+                <a href="#nosotros" onclick="cambiarVista('nosotros')" class="nav-link text-gray-300 hover:text-fitlime transition-colors pb-1 border-b-2 border-transparent" data-target="nosotros">NOSOTROS</a>
+                <a href="#contacto" onclick="cambiarVista('contacto')" class="nav-link text-gray-300 hover:text-fitlime transition-colors pb-1 border-b-2 border-transparent" data-target="contacto">CONTACTO</a>
+            </nav>
+
+            <!-- Botones e íconos interactivos de la derecha -->
+            <div class="flex items-center space-x-5">
+                <!-- Botón de Buscador -->
+                <button onclick="abrirModalBusqueda()" class="text-gray-300 hover:text-fitlime transition-colors p-2" title="Buscar">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <!-- Botón de Cuenta / Perfil -->
+                <button onclick="cambiarVista('contacto')" class="hidden sm:block text-gray-300 hover:text-fitlime transition-colors p-2" title="Mi Cuenta">
+                    <i class="fa-regular fa-user text-lg"></i>
+                </button>
+                <!-- Botón del Carrito de Compras con contador dinámico -->
+                <button onclick="alternarModalCarrito()" class="relative bg-neutral-900 border border-fitborder p-2.5 rounded-xl hover:border-fitlime transition-colors group" title="Carrito">
+                    <i class="fa-solid fa-shopping-cart text-gray-200 group-hover:text-fitlime transition-colors"></i>
+                    <span id="contador-carrito" class="absolute -top-2 -right-2 bg-fitlime text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                </button>
+                <!-- Botón de Menú Hamburguesa para dispositivos móviles -->
+                <button onclick="alternarMenuMovil()" class="md:hidden text-gray-300 hover:text-fitlime p-2 focus:outline-none">
+                    <i id="icono-menu-movil" class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú desplegable para móviles -->
+        <div id="menu-movil" class="hidden md:hidden bg-fitcard border-b border-fitborder px-6 py-4 space-y-3">
+            <button onclick="cambiarVista('inicio'); alternarMenuMovil();" class="block w-full text-left py-2 font-medium text-gray-200 hover:text-fitlime">Inicio</button>
+            <button onclick="cambiarVista('tienda', 'todos'); alternarMenuMovil();" class="block w-full text-left py-2 font-medium text-gray-200 hover:text-fitlime">Tienda / Catálogo</button>
+            <div class="py-1 border-t border-neutral-800 pl-4 space-y-2">
+                <p class="text-xs font-bold text-fitlime tracking-wider uppercase pt-1">Categorías</p>
+                <button onclick="cambiarVista('tienda', 'buzos'); alternarMenuMovil();" class="block text-sm text-gray-400 hover:text-white py-1">Buzos y Camperas</button>
+                <button onclick="cambiarVista('tienda', 'remeras'); alternarMenuMovil();" class="block text-sm text-gray-400 hover:text-white py-1">Remeras</button>
+                <button onclick="cambiarVista('tienda', 'pantalones'); alternarMenuMovil();" class="block text-sm text-gray-400 hover:text-white py-1">Pantalones</button>
+                <button onclick="cambiarVista('tienda', 'tops'); alternarMenuMovil();" class="block text-sm text-gray-400 hover:text-white py-1">Tops y Calzas</button>
+                <button onclick="cambiarVista('tienda', 'zapatillas'); alternarMenuMovil();" class="block text-sm text-gray-400 hover:text-white py-1">Zapatillas</button>
+            </div>
+            <button onclick="cambiarVista('nosotros'); alternarMenuMovil();" class="block w-full text-left py-2 font-medium text-gray-200 hover:text-fitlime border-t border-neutral-800">Nosotros</button>
+            <button onclick="cambiarVista('contacto'); alternarMenuMovil();" class="block w-full text-left py-2 font-medium text-gray-200 hover:text-fitlime">Contacto</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- ================= VISTA 1: INICIO (HOME) ================= -->
+        <div id="vista-inicio" class="spa-vista">
+            <!-- Sección Hero Principal -->
+            <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-fitborder">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Fitwear Gimnasio" class="w-full h-full object-cover object-center filter brightness-40 contrast-125">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+                </div>
+
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 flex flex-col lg:flex-row items-center justify-between">
+                    <div class="max-w-2xl text-left space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-900/90 border border-fitborder rounded-full text-xs font-semibold text-fitlime tracking-widest uppercase">
+                            <span class="w-2 h-2 rounded-full bg-fitlime animate-pulse"></span>
+                            Ropa Deportiva & Streetwear
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none uppercase">
+                            Vestí tu <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-fitlime to-white">mejor versión</span>
+                        </h1>
+                        <p class="text-gray-300 text-base sm:text-lg max-w-xl font-light">
+                            En FitWear encontrás la mejor ropa deportiva y urbana, con la calidad, comodidad y estilo que necesitás para entrenar, salir o simplemente sentirte bien.
+                        </p>
+                        <div class="pt-4 flex flex-wrap gap-4 items-center">
+                            <button onclick="cambiarVista('tienda', 'todos')" class="bg-fitlime text-black font-extrabold px-8 py-4 rounded-xl hover:bg-lime-400 transition-all transform hover:-translate-y-0.5 shadow-lg shadow-fitlime/20 flex items-center gap-3">
+                                <span>VER CATÁLOGO</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="cambiarVista('nosotros')" class="border border-neutral-700 bg-neutral-900/50 backdrop-blur text-white font-semibold px-8 py-4 rounded-xl hover:border-fitlime hover:text-fitlime transition-all">
+                                Conocer Más
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicador de Scroll -->
+                <div class="absolute bottom-6 right-8 hidden lg:flex flex-col items-center text-xs text-gray-400 gap-1 animate-bounce">
+                    <span class="tracking-widest font-semibold uppercase text-[10px]">Scroll</span>
+                    <i class="fa-solid fa-arrow-down text-fitlime"></i>
+                </div>
+            </section>
+
+            <!-- Barra de Beneficios (Envíos, Compra Segura, Pagos) -->
+            <section class="bg-fitcard border-b border-fitborder py-6">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-4 p-3">
+                        <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-fitlime text-xl shrink-0">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Envíos a todo el país</h4>
+                            <p class="text-xs text-gray-400">Recibí tu pedido en la puerta de tu casa</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center md:justify-start gap-4 p-3">
+                        <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-fitlime text-xl shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Compra segura</h4>
+                            <p class="text-xs text-gray-400">Tus datos protegidos en cada transacción</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center md:justify-start gap-4 p-3">
+                        <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-fitlime text-xl shrink-0">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm">Múltiples medios de pago</h4>
+                            <p class="text-xs text-gray-400">Tarjetas, transferencias y efectivo</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección "Nuestras Categorías" (Con enlaces interactivos que filtran la tienda) -->
+            <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <div class="flex items-center gap-2 text-fitlime text-xs font-bold uppercase tracking-widest mb-1">
+                            <span class="w-2 h-2 rounded-full bg-fitlime"></span>
+                            Nuestras Categorías
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight">Encontrá lo que necesitás</h2>
+                    </div>
+                    <button onclick="cambiarVista('tienda', 'todos')" class="hidden sm:flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-fitlime transition-colors">
+                        <span>Ver Todo</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Cuadrícula de 5 Categorías -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <!-- Categoría 1: Buzos y Camperas -->
+                    <div onclick="cambiarVista('tienda', 'buzos')" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer border border-fitborder hover:border-fitlime transition-all shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" alt="Buzos y Camperas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900/80 border border-fitborder flex items-center justify-center text-fitlime mb-3">
+                                    <i class="fa-solid fa-shirt"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-fitlime transition-colors leading-snug">Buzos y Camperas</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-neutral-900/80 border border-fitborder flex items-center justify-center text-white group-hover:bg-fitlime group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoría 2: Remeras -->
+                    <div onclick="cambiarVista('tienda', 'remeras')" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer border border-fitborder hover:border-fitlime transition-all shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Remeras" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900/80 border border-fitborder flex items-center justify-center text-fitlime mb-3">
+                                    <i class="fa-solid fa-vest"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-fitlime transition-colors leading-snug">Remeras</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-neutral-900/80 border border-fitborder flex items-center justify-center text-white group-hover:bg-fitlime group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoría 3: Pantalones -->
+                    <div onclick="cambiarVista('tienda', 'pantalones')" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer border border-fitborder hover:border-fitlime transition-all shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=600&q=80" alt="Pantalones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900/80 border border-fitborder flex items-center justify-center text-fitlime mb-3">
+                                    <i class="fa-solid fa-person-walking"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-fitlime transition-colors leading-snug">Pantalones</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-neutral-900/80 border border-fitborder flex items-center justify-center text-white group-hover:bg-fitlime group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoría 4: Tops y Calzas -->
+                    <div onclick="cambiarVista('tienda', 'tops')" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer border border-fitborder hover:border-fitlime transition-all shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80" alt="Tops y Calzas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900/80 border border-fitborder flex items-center justify-center text-fitlime mb-3">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-fitlime transition-colors leading-snug">Tops y Calzas</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-neutral-900/80 border border-fitborder flex items-center justify-center text-white group-hover:bg-fitlime group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoría 5: Zapatillas -->
+                    <div onclick="cambiarVista('tienda', 'zapatillas')" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer border border-fitborder hover:border-fitlime transition-all shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Zapatillas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-75">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900/80 border border-fitborder flex items-center justify-center text-fitlime mb-3">
+                                    <i class="fa-solid fa-shoe-prints"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-fitlime transition-colors leading-snug">Zapatillas</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-neutral-900/80 border border-fitborder flex items-center justify-center text-white group-hover:bg-fitlime group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección "Productos Destacados" / "Lo más elegido" -->
+            <section class="py-20 bg-neutral-950 border-t border-fitborder">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-end justify-between mb-12">
+                        <div>
+                            <div class="flex items-center gap-2 text-fitlime text-xs font-bold uppercase tracking-widest mb-1">
+                                <span class="w-2 h-2 rounded-full bg-fitlime"></span>
+                                Productos Destacados
+                            </div>
+                            <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight">Lo más elegido</h2>
+                        </div>
+                        <button onclick="cambiarVista('tienda', 'todos')" class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-300 hover:text-fitlime transition-colors">
+                            <span>Ver todos los productos</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cuadrícula rellenada dinámicamente con JavaScript -->
+                    <div id="grid-productos-destacados" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"></div>
+                </div>
+            </section>
+
+            <!-- Banner Intermedio -->
+            <section class="relative py-24 overflow-hidden border-t border-b border-fitborder">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1920&q=80" alt="Motivación Gimnasio" class="w-full h-full object-cover filter brightness-30 contrast-125">
+                    <div class="absolute inset-0 bg-black/60"></div>
+                </div>
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+                    <span class="text-xs tracking-widest text-fitlime font-bold uppercase mb-3">Entrená · Vestí · Superate</span>
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight max-w-2xl uppercase mb-6">El estilo también es parte del entrenamiento</h2>
+                    <button onclick="cambiarVista('nosotros')" class="border border-fitlime text-fitlime hover:bg-fitlime hover:text-black font-bold px-8 py-4 rounded-xl transition-all shadow-lg">
+                        CONOCÉ MÁS
+                    </button>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= VISTA 2: TIENDA / CATÁLOGO DINÁMICO SPA ================= -->
+        <div id="vista-tienda" class="spa-vista hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Encabezado de la Tienda -->
+                <div class="border-b border-fitborder pb-8 mb-10">
+                    <div class="flex items-center gap-2 text-fitlime text-xs font-bold uppercase tracking-widest mb-1">
+                        <span class="w-2 h-2 rounded-full bg-fitlime"></span>
+                        Tienda Oficial FitWear
+                    </div>
+                    <h1 class="text-4xl font-black uppercase tracking-tight" id="titulo-catalogo">Catálogo Completo</h1>
+                    <p class="text-gray-400 mt-2">Navegá por nuestras categorías y encontrá tu indumentaria ideal sin cambiar de página.</p>
+                </div>
+
+                <!-- Botones de Filtro por Categoría (SPA) -->
+                <div class="flex flex-wrap gap-3 mb-12">
+                    <button onclick="filtrarCatalogo('todos')" id="filtro-todos" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-fitlime text-black shadow-lg">Todos</button>
+                    <button onclick="filtrarCatalogo('buzos')" id="filtro-buzos" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime">Buzos y Camperas</button>
+                    <button onclick="filtrarCatalogo('remeras')" id="filtro-remeras" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime">Remeras</button>
+                    <button onclick="filtrarCatalogo('pantalones')" id="filtro-pantalones" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime">Pantalones</button>
+                    <button onclick="filtrarCatalogo('tops')" id="filtro-tops" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime">Tops y Calzas</button>
+                    <button onclick="filtrarCatalogo('zapatillas')" id="filtro-zapatillas" class="categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime">Zapatillas</button>
+                </div>
+
+                <!-- Cuadrícula de Productos de la Tienda -->
+                <div id="grid-productos-catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+                <!-- Estado Vacío (si no hay productos) -->
+                <div id="catalogo-vacio" class="hidden text-center py-24">
+                    <div class="w-16 h-16 bg-neutral-900 border border-fitborder rounded-full flex items-center justify-center mx-auto text-fitlime text-2xl mb-4">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase">No hay productos en esta categoría</h3>
+                    <p class="text-gray-400 text-sm mt-1">Pronto agregaremos nuevas prendas exclusivas.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= VISTA 3: NOSOTROS ================= -->
+        <div id="vista-nosotros" class="spa-vista hidden py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                <div class="text-center space-y-4">
+                    <span class="text-xs font-bold text-fitlime tracking-widest uppercase">Nuestra Historia</span>
+                    <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tight">Pasión por el rendimiento y el streetwear</h1>
+                    <p class="text-gray-300 max-w-2xl mx-auto font-light">
+                        Nacimos en Córdoba con un objetivo claro: fusionar la máxima funcionalidad deportiva con las últimas tendencias de la moda urbana.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold uppercase">Calidad sin concesiones</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            Cada prenda de FitWear está diseñada para soportar los entrenamientos más exigentes sin descuidar el estilo que define tu día a día en la calle. Utilizamos telas respirables, costuras reforzadas y cortes ergonómicos.
+                        </p>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-fitlime"></i> Algodón premium y elastano de alta resistencia</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-fitlime"></i> Diseños exclusivos en Ediciones Limitadas</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-fitlime"></i> Envíos rápidos y seguros a todo el territorio argentino</li>
+                        </ul>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-fitborder h-80">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Tienda Fitwear" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= VISTA 4: CONTACTO ================= -->
+        <div id="vista-contacto" class="spa-vista hidden py-16">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-4 mb-16">
+                    <span class="text-xs font-bold text-fitlime tracking-widest uppercase">Estamos para ayudarte</span>
+                    <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-tight">Contacto Oficial</h1>
+                    <p class="text-gray-300 max-w-xl mx-auto font-light">
+                        Comunicate con nuestro equipo de atención al cliente por cualquiera de nuestros canales oficiales o visitanos.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Tarjetas de Información de Contacto -->
+                    <div class="space-y-6">
+                        <div class="bg-fitcard border border-fitborder p-6 rounded-2xl flex items-start gap-4">
+                            <div class="w-12 h-12 bg-neutral-900 border border-fitborder rounded-xl flex items-center justify-center text-fitlime text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Teléfono / WhatsApp</h4>
+                                <p class="text-sm text-gray-400">+54 9 351 3829410</p>
+                                <span class="text-xs text-fitlime mt-1 inline-block">Lun a Vie de 9 a 18 hs</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-fitcard border border-fitborder p-6 rounded-2xl flex items-start gap-4">
+                            <div class="w-12 h-12 bg-neutral-900 border border-fitborder rounded-xl flex items-center justify-center text-fitlime text-xl shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Correo Electrónico</h4>
+                                <p class="text-sm text-gray-400">ventas@fitwear.com.ar</p>
+                                <span class="text-xs text-fitlime mt-1 inline-block">Respuesta en menos de 24 hs</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-fitcard border border-fitborder p-6 rounded-2xl flex items-start gap-4">
+                            <div class="w-12 h-12 bg-neutral-900 border border-fitborder rounded-xl flex items-center justify-center text-fitlime text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Ubicación</h4>
+                                <p class="text-sm text-gray-400">Córdoba, Argentina</p>
+                                <span class="text-xs text-fitlime mt-1 inline-block">Showroom central (Con cita previa)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Contacto -->
+                    <div class="bg-fitcard border border-fitborder p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold uppercase mb-6">Envianos tu consulta</h3>
+                        <form onsubmit="enviarFormularioContacto(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Nombre y Apellido</label>
+                                <input type="text" required class="w-full bg-neutral-900 border border-fitborder rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fitlime" placeholder="Ej: Juan Pérez">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Correo Electrónico</label>
+                                <input type="email" required class="w-full bg-neutral-900 border border-fitborder rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fitlime" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-400 mb-1">Mensaje</label>
+                                <textarea rows="4" required class="w-full bg-neutral-900 border border-fitborder rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-fitlime" placeholder="¿En qué podemos ayudarte?"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-fitlime text-black font-extrabold py-4 rounded-xl hover:bg-lime-400 transition-all uppercase tracking-wider text-sm shadow-lg">
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-black border-t border-fitborder pt-16 pb-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+            
+            <!-- Columna 1: Marca y Redes -->
+            <div class="lg:col-span-2 space-y-4">
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-wider italic">FITWEAR</span>
+                    <span class="text-[9px] tracking-widest text-fitlime font-bold uppercase -mt-1">TU ESTILO, TU FUERZA</span>
+                </div>
+                <p class="text-gray-400 text-sm max-w-sm">
+                    Ropa deportiva y urbana para personas que buscan superarse cada día. Calidad, diseño y resistencia sin límites.
+                </p>
+                <div class="flex items-center space-x-4 pt-2">
+                    <a href="#" class="w-10 h-10 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-gray-300 hover:text-fitlime hover:border-fitlime transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-gray-300 hover:text-fitlime hover:border-fitlime transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-gray-300 hover:text-fitlime hover:border-fitlime transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-gray-300 hover:text-fitlime hover:border-fitlime transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Columna 2: Enlaces rápidos -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-sm tracking-wider uppercase text-white">Enlaces</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><button onclick="cambiarVista('inicio')" class="hover:text-fitlime transition-colors">Inicio</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'todos')" class="hover:text-fitlime transition-colors">Tienda</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'todos')" class="hover:text-fitlime transition-colors">Categorías</button></li>
+                    <li><button onclick="cambiarVista('nosotros')" class="hover:text-fitlime transition-colors">Nosotros</button></li>
+                    <li><button onclick="cambiarVista('contacto')" class="hover:text-fitlime transition-colors">Contacto</button></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Categorías -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-sm tracking-wider uppercase text-white">Categorías</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><button onclick="cambiarVista('tienda', 'buzos')" class="hover:text-fitlime transition-colors">Buzos y Camperas</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'remeras')" class="hover:text-fitlime transition-colors">Remeras</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'pantalones')" class="hover:text-fitlime transition-colors">Pantalones</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'tops')" class="hover:text-fitlime transition-colors">Tops y Calzas</button></li>
+                    <li><button onclick="cambiarVista('tienda', 'zapatillas')" class="hover:text-fitlime transition-colors">Zapatillas</button></li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Contacto y Newsletter -->
+            <div class="space-y-4">
+                <h4 class="font-bold text-sm tracking-wider uppercase text-white">Contacto</h4>
+                <div class="space-y-2 text-sm text-gray-400">
+                    <p class="flex items-center gap-2"><i class="fa-solid fa-phone text-fitlime"></i> +54 9 351 3829410</p>
+                    <p class="flex items-center gap-2"><i class="fa-solid fa-envelope text-fitlime"></i> ventas@fitwear.com.ar</p>
+                    <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-fitlime"></i> Córdoba, Argentina</p>
+                </div>
+                <div class="pt-2">
+                    <h5 class="text-xs font-bold uppercase text-gray-300 mb-2">Suscribite y recibí novedades</h5>
+                    <form onsubmit="enviarNewsletter(event)" class="flex gap-2">
+                        <input type="email" required placeholder="Tu correo electrónico" class="bg-neutral-900 border border-fitborder rounded-xl px-3 py-2 text-xs text-white w-full focus:outline-none focus:border-fitlime">
+                        <button type="submit" class="bg-fitlime text-black px-4 py-2 rounded-xl text-xs font-extrabold hover:bg-lime-400 transition-all"><i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-neutral-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+            <p>&copy; 2026 FitWear. Todos los derechos reservados.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-gray-300 transition-colors">Términos y condiciones</a>
+                <a href="#" class="hover:text-gray-300 transition-colors">Política de privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="modal-carrito" class="fixed inset-0 z-50 hidden">
+        <!-- Fondo oscuro semitransparente -->
+        <div onclick="alternarModalCarrito()" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"></div>
+        
+        <!-- Panel lateral deslizante -->
+        <div class="absolute inset-y-0 right-0 max-w-md w-full bg-fitcard border-l border-fitborder flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+            <!-- Encabezado del carrito -->
+            <div class="p-6 border-b border-fitborder flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-fitlime">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Tu Carrito</h3>
+                        <p id="label-cantidad-items" class="text-xs text-gray-400">0 productos</p>
+                    </div>
+                </div>
+                <button onclick="alternarModalCarrito()" class="w-9 h-9 rounded-xl bg-neutral-900 border border-fitborder flex items-center justify-center text-gray-400 hover:text-white hover:border-fitlime transition-all">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Listado de productos en el carrito -->
+            <div id="contenedor-items-carrito" class="flex-grow overflow-y-auto p-6 space-y-4 divide-y divide-neutral-900"></div>
+
+            <!-- Estado vacío del carrito -->
+            <div id="carrito-estado-vacio" class="hidden flex-grow flex flex-col items-center justify-center p-6 text-center">
+                <div class="w-16 h-16 bg-neutral-900 border border-fitborder rounded-full flex items-center justify-center text-gray-500 text-2xl mb-4">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-1">Tu carrito está vacío</h4>
+                <p class="text-xs text-gray-400 max-w-xs mb-6">Explorá nuestro catálogo y sumá prendas a tu entrenamiento.</p>
+                <button onclick="alternarModalCarrito(); cambiarVista('tienda', 'todos');" class="bg-fitlime text-black font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider">
+                    Ir a la Tienda
+                </button>
+            </div>
+
+            <!-- Pie del carrito (Totales y botón WhatsApp) -->
+            <div id="pie-carrito" class="p-6 border-t border-fitborder space-y-4 bg-black/40">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-400">Subtotal</span>
+                    <span id="carrito-subtotal" class="font-bold text-lg">$ 0</span>
+                </div>
+                <div class="flex items-center justify-between text-xs text-gray-400 pb-2 border-b border-neutral-900">
+                    <span>Envíos</span>
+                    <span class="text-fitlime font-semibold">A calcular en checkout</span>
+                </div>
+                <div class="flex items-center justify-between text-base font-black">
+                    <span>Total</span>
+                    <span id="carrito-total" class="text-fitlime text-xl">$ 0</span>
+                </div>
+                <button onclick="finalizarCompraWhatsApp()" class="w-full bg-fitlime text-black font-black py-4 rounded-xl hover:bg-lime-400 transition-all uppercase tracking-wider text-sm shadow-lg">
+                    Finalizar Compra (WhatsApp)
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Búsqueda rápida -->
+    <div id="modal-busqueda" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4">
+        <div onclick="abrirModalBusqueda()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative w-full max-w-2xl bg-fitcard border border-fitborder rounded-2xl shadow-2xl p-6 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div class="flex items-center gap-3 pb-4 border-b border-fitborder">
+                <i class="fa-solid fa-magnifying-glass text-fitlime text-lg"></i>
+                <input type="text" id="input-busqueda" oninput="ejecutarBusqueda(this.value)" placeholder="Buscá por prenda, categoría o estilo..." class="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none text-base">
+                <button onclick="abrirModalBusqueda()" class="text-gray-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="resultados-busqueda" class="max-h-96 overflow-y-auto pt-4 space-y-3">
+                <p class="text-xs text-gray-500 text-center py-6">Escribí el nombre de un producto para comenzar...</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Notificación Toast flotante -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-fitcard border border-fitlime text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-fitlime text-black flex items-center justify-center font-bold">
+            <i class="fa-solid fa-check text-xs"></i>
+        </div>
+        <div>
+            <h5 id="toast-titulo" class="font-bold text-xs uppercase">Producto agregado</h5>
+            <p id="toast-mensaje" class="text-xs text-gray-400">Ya está disponible en tu carrito</p>
+        </div>
+    </div>
+
+
+    <script>
+        /* Base de datos completa de productos de la tienda */
+        const baseDeDatosProductos = [
+            {
+                id: 1,
+                name: "BUZO OVERSIZE",
+                category: "buzos",
+                badge: "NUEVO",
+                price: 45990,
+                description: "Algodón premium de máxima suavidad y abrigo.",
+                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "REMERA DRY-FIT",
+                category: "remeras",
+                badge: "MÁS VENDIDO",
+                price: 22990,
+                description: "Tecnología respirable anti-transpiración.",
+                image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "PANTALÓN JOGGER",
+                category: "pantalones",
+                badge: "NUEVO",
+                price: 34990,
+                description: "Cómodo, resistente y con bolsillos con cierre.",
+                image: "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "TOP DEPORTIVO",
+                category: "tops",
+                badge: "MÁS VENDIDO",
+                price: 19990,
+                description: "Soporte superior y libertad de movimiento.",
+                image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "ZAPATILLAS RUNNING",
+                category: "zapatillas",
+                badge: "NUEVO",
+                price: 89990,
+                description: "Amortiguación avanzada y estilo urbano.",
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "CAMPERA WINDBREAKER",
+                category: "buzos",
+                badge: "NUEVO",
+                price: 54990,
+                description: "Resistente al agua y al viento para entrenar al aire libre.",
+                image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                name: "REMERA OVERSIZE STREET",
+                category: "remeras",
+                badge: "MÁS VENDIDO",
+                price: 24990,
+                description: "Corte urbano amplio y algodón peinado premium.",
+                image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                name: "CALZA COMPRESIÓN",
+                category: "tops",
+                badge: "NUEVO",
+                price: 28990,
+                description: "Calza larga con tecnología de compresión muscular.",
+                image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                name: "SHORT TRAINING",
+                category: "pantalones",
+                badge: "MÁS VENDIDO",
+                price: 18990,
+                description: "Liviano, flexible y secado ultra rápido.",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 10,
+                name: "ZAPATILLAS STREETWEAR",
+                category: "zapatillas",
+                badge: "NUEVO",
+                price: 79990,
+                description: "Diseño urbano robusto con suela de alta tracción.",
+                image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        /* Estado global del carrito de compras */
+        let carritoDeCompras = [];
+
+        /* Inicialización al cargar la página por completo */
+        window.addEventListener('DOMContentLoaded', () => {
+            renderizarProductosDestacados();
+            filtrarCatalogo('todos');
+        });
+
+        /* Función para cambiar entre vistas en la misma página (SPA) */
+        function cambiarVista(nombreVista, filtroCategoria = null) {
+            // Ocultar todas las vistas de la aplicación
+            document.querySelectorAll('.spa-vista').forEach(el => el.classList.add('hidden'));
+            
+            // Mostrar la vista seleccionada
+            const vistaObjetivo = document.getElementById(`vista-${nombreVista}`);
+            if (vistaObjetivo) {
+                vistaObjetivo.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Actualizar clases activas en los enlaces del menú superior
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.target === nombreVista) {
+                    link.classList.add('text-fitlime', 'border-fitlime');
+                    link.classList.remove('text-gray-300', 'border-transparent');
+                } else {
+                    link.classList.remove('text-fitlime', 'border-fitlime');
+                    link.classList.add('text-gray-300', 'border-transparent');
+                }
+            });
+
+            // Si se cambia a la vista tienda, se aplica el filtro de categoría correspondiente
+            if (nombreVista === 'tienda') {
+                filtrarCatalogo(filtroCategoria || 'todos');
+            }
+        }
+
+        /* Renderiza los productos destacados en la página de inicio */
+        function renderizarProductosDestacados() {
+            const contenedor = document.getElementById('grid-productos-destacados');
+            if (!contenedor) return;
+            
+            const destacados = baseDeDatosProductos.slice(0, 5);
+            contenedor.innerHTML = destacados.map(p => crearTarjetaProductoHTML(p)).join('');
+        }
+
+        /* Filtra el catálogo dinámicamente según la categoría elegida */
+        function filtrarCatalogo(categoria) {
+            const contenedor = document.getElementById('grid-productos-catalogo');
+            const estadoVacio = document.getElementById('catalogo-vacio');
+            const tituloCatalogo = document.getElementById('titulo-catalogo');
+            if (!contenedor) return;
+
+            // Actualizar estilo visual de los botones de filtro
+            document.querySelectorAll('.categoria-pill').forEach(pill => {
+                pill.className = "categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-neutral-900 border border-fitborder text-gray-300 hover:border-fitlime hover:text-fitlime";
+            });
+            const pillActiva = document.getElementById(`filtro-${categoria}`);
+            if (pillActiva) {
+                pillActiva.className = "categoria-pill px-6 py-3 rounded-xl text-sm font-bold transition-all bg-fitlime text-black shadow-lg";
+            }
+
+            // Textos de título según categoría
+            const titulosMap = {
+                todos: "Catálogo Completo",
+                buzos: "Buzos y Camperas",
+                remeras: "Remeras",
+                pantalones: "Pantalones",
+                tops: "Tops y Calzas",
+                zapatillas: "Zapatillas"
+            };
+            if (tituloCatalogo) tituloCatalogo.textContent = titulosMap[categoria] || "Catálogo";
+
+            // Filtrar productos
+            const filtrados = categoria === 'todos' ? baseDeDatosProductos : baseDeDatosProductos.filter(p => p.category === categoria);
+
+            if (filtrados.length === 0) {
+                contenedor.innerHTML = "";
+                estadoVacio.classList.remove('hidden');
+            } else {
+                estadoVacio.classList.add('hidden');
+                contenedor.innerHTML = filtrados.map(p => crearTarjetaProductoHTML(p)).join('');
+            }
+        }
+
+        /* Plantilla HTML para las tarjetas de productos */
+        function crearTarjetaProductoHTML(producto) {
+            const estiloBadge = producto.badge === 'NUEVO' ? 'bg-neutral-900 text-white border border-fitborder' : 'bg-fitlime text-black';
+            const precioFormateado = producto.price.toLocaleString('es-AR');
+
+            return `
+                <div class="bg-fitcard border border-fitborder rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-fitlime transition-all shadow-xl">
+                    <div class="relative h-64 overflow-hidden bg-neutral-900">
+                        <img src="${producto.image}" alt="${producto.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x600/161616/ccff00?text=FITWEAR'">
+                        <span class="absolute top-3 left-3 px-3 py-1 text-[10px] font-black uppercase rounded-full ${estiloBadge}">
+                            ${producto.badge}
+                        </span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-1">
+                            <h3 class="font-extrabold text-base tracking-wide text-white group-hover:text-fitlime transition-colors">${producto.name}</h3>
+                            <p class="text-xs text-gray-400 line-clamp-2">${producto.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-lg font-black text-white">$ ${precioFormateado}</span>
+                        </div>
+                        <button onclick="agregarAlCarrito(${producto.id})" class="w-full bg-neutral-900 border border-fitborder hover:bg-fitlime hover:text-black hover:border-fitlime text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <span>Agregar al Carrito</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* Añade un producto al carrito de compras */
+        function agregarAlCarrito(idProducto) {
+            const producto = baseDeDatosProductos.find(p => p.id === idProducto);
+            if (!producto) return;
+
+            const itemExistente = carritoDeCompras.find(item => item.id === idProducto);
+            if (itemExistente) {
+                itemExistente.quantity += 1;
+            } else {
+                carritoDeCompras.push({ ...producto, quantity: 1 });
+            }
+
+            actualizarInterfazCarrito();
+            mostrarToast("Producto agregado", `${producto.name} se añadió al carrito.`);
+        }
+
+        /* Elimina un producto del carrito */
+        function eliminarDelCarrito(idProducto) {
+            carritoDeCompras = carritoDeCompras.filter(item => item.id !== idProducto);
+            actualizarInterfazCarrito();
+        }
+
+        /* Modifica la cantidad de unidades de un producto en el carrito */
+        function actualizarCantidad(idProducto, cambio) {
+            const item = carritoDeCompras.find(i => i.id === idProducto);
+            if (item) {
+                item.quantity += cambio;
+                if (item.quantity <= 0) {
+                    eliminarDelCarrito(idProducto);
+                } else {
+                    actualizarInterfazCarrito();
+                }
+            }
+        }
+
+        /* Actualiza contadores, totales e interfaz del carrito */
+        function actualizarInterfazCarrito() {
+            const contador = document.getElementById('contador-carrito');
+            const labelCantidad = document.getElementById('label-cantidad-items');
+            const contenedorItems = document.getElementById('contenedor-items-carrito');
+            const estadoVacio = document.getElementById('carrito-estado-vacio');
+            const pieCarrito = document.getElementById('pie-carrito');
+            const subtotalEl = document.getElementById('carrito-subtotal');
+            const totalEl = document.getElementById('carrito-total');
+
+            const totalItems = carritoDeCompras.reduce((sum, item) => sum + item.quantity, 0);
+            contador.textContent = totalItems;
+            labelCantidad.textContent = `${totalItems} producto${totalItems === 1 ? '' : 's'}`;
+
+            if (carritoDeCompras.length === 0) {
+                contenedorItems.innerHTML = "";
+                contenedorItems.classList.add('hidden');
+                estadoVacio.classList.remove('hidden');
+                pieCarrito.classList.add('hidden');
+            } else {
+                estadoVacio.classList.add('hidden');
+                contenedorItems.classList.remove('hidden');
+                pieCarrito.classList.remove('hidden');
+
+                contenedorItems.innerHTML = carritoDeCompras.map(item => `
+                    <div class="pt-4 first:pt-0 flex items-center justify-between gap-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl border border-fitborder bg-neutral-900">
+                        <div class="flex-grow">
+                            <h5 class="font-bold text-sm">${item.name}</h5>
+                            <p class="text-xs text-fitlime font-semibold">$ ${item.price.toLocaleString('es-AR')}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <button onclick="actualizarCantidad(${item.id}, -1)" class="w-6 h-6 rounded-lg bg-neutral-900 border border-fitborder flex items-center justify-center text-xs hover:border-fitlime">-</button>
+                                <span class="text-xs font-bold">${item.quantity}</span>
+                                <button onclick="actualizarCantidad(${item.id}, 1)" class="w-6 h-6 rounded-lg bg-neutral-900 border border-fitborder flex items-center justify-center text-xs hover:border-fitlime">+</button>
+                            </div>
+                        </div>
+                        <button onclick="eliminarDelCarrito(${item.id})" class="text-gray-500 hover:text-red-400 p-2">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `).join('');
+
+                const subtotal = carritoDeCompras.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                subtotalEl.textContent = `$ ${subtotal.toLocaleString('es-AR')}`;
+                totalEl.textContent = `$ ${subtotal.toLocaleString('es-AR')}`;
+            }
+        }
+
+        /* Abre o cierra el modal lateral del carrito */
+        function alternarModalCarrito() {
+            const modal = document.getElementById('modal-carrito');
+            modal.classList.toggle('hidden');
+        }
+
+        /* Finaliza la compra generando un enlace directo a WhatsApp */
+        function finalizarCompraWhatsApp() {
+            if (carritoDeCompras.length === 0) return;
+            let mensaje = "Hola! Quiero realizar el siguiente pedido en FitWear:\n\n";
+            carritoDeCompras.forEach(i => {
+                mensaje += `- ${i.quantity}x ${i.name} ($ ${(i.price * i.quantity).toLocaleString('es-AR')})\n`;
+            });
+            const total = carritoDeCompras.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            mensaje += `\nTotal: $ ${total.toLocaleString('es-AR')}\n\nQuedo a la espera de los datos para abonar y coordinar el envío. ¡Gracias!`;
+            
+            const codificado = encodeURIComponent(mensaje);
+            window.open(`https://wa.me/5493513829410?text=${codificado}`, '_blank');
+        }
+
+        /* Abre o cierra el modal de búsqueda */
+        function abrirModalBusqueda() {
+            const modal = document.getElementById('modal-busqueda');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('input-busqueda').focus();
+            }
+        }
+
+        /* Ejecuta la búsqueda en tiempo real de productos */
+        function ejecutarBusqueda(termino) {
+            const contenedorResultados = document.getElementById('resultados-busqueda');
+            if (!termino.trim()) {
+                contenedorResultados.innerHTML = '<p class="text-xs text-gray-500 text-center py-6">Escribí el nombre de un producto para comenzar...</p>';
+                return;
+            }
+
+            const q = termino.toLowerCase();
+            const encontrados = baseDeDatosProductos.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+
+            if (encontrados.length === 0) {
+                contenedorResultados.innerHTML = '<p class="text-xs text-gray-400 text-center py-6">No se encontraron productos para tu búsqueda.</p>';
+            } else {
+                contenedorResultados.innerHTML = encontrados.map(p => `
+                    <div onclick="abrirModalBusqueda(); agregarAlCarrito(${p.id});" class="flex items-center justify-between p-3 rounded-xl bg-neutral-900 border border-fitborder hover:border-fitlime cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <img src="${p.image}" class="w-12 h-12 object-cover rounded-lg">
+                            <div>
+                                <h5 class="font-bold text-sm">${p.name}</h5>
+                                <p class="text-xs text-gray-400">$ ${p.price.toLocaleString('es-AR')}</p>
+                            </div>
+                        </div>
+                        <span class="text-xs bg-fitlime text-black px-3 py-1 rounded-lg font-bold">Comprar</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        /* Alterna el menú en dispositivos móviles */
+        function alternarMenuMovil() {
+            const menu = document.getElementById('menu-movil');
+            const icono = document.getElementById('icono-menu-movil');
+            menu.classList.toggle('hidden');
+            icono.classList.toggle('fa-bars');
+            icono.classList.toggle('fa-xmark');
+        }
+
+        /* Muestra una notificación Toast flotante */
+        function mostrarToast(titulo, mensaje) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-titulo').textContent = titulo;
+            document.getElementById('toast-mensaje').textContent = mensaje;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        /* Maneja el envío del formulario de contacto */
+        function enviarFormularioContacto(e) {
+            e.preventDefault();
+            mostrarToast("Mensaje enviado", "Nos pondremos en contacto a la brevedad.");
+            e.target.reset();
+        }
+
+        /* Maneja la suscripción al newsletter */
+        function enviarNewsletter(e) {
+            e.preventDefault();
+            mostrarToast("¡Suscripción exitosa!", "Recibirás nuestras novedades y descuentos.");
+            e.target.reset();
+        }
+    </script>
+
+</body>
+</html>
